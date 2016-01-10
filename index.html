@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src='bower_components/angular/angular.js'></script>
+    <script src='bower_components/chance/chance.js'></script>
+    <script src='gbfSim.controller.js'></script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="GbfSimController">
+    <div>
+        <input type="number" name="number of roll" ng-model="totalRoll" min="1" max="10000" required>
+        <span>total money: {{totalRoll * 300}} yen</span>
+        <br/>
+        <label>
+            <input type="radio" ng-model="ssrRate" value="0.03"> Normal
+        </label>
+        <label>
+            <input type="radio" ng-model="ssrRate" ng-value="0.06"> Legend Fest
+        </label>
+        <button ng-click="click()"><span>random</span></button>
+    </div>
+    <div ng-show="rollList.length > 0">
+        <div>
+            <span>Total SSR you get: {{totalSsr}}</span>
+            <span>SSR drop rate: {{totalSsr / totalRoll * 100 | number:2}}%</span>
+        </div>
+        <label>Show details:<input type="checkbox" ng-model="showDetails"></label>
+        <br/>
+        <div ng-if="showDetails">
+            <div ng-repeat="roll in rollList">
+                <span>{{roll.drop}}:{{roll.roll}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
