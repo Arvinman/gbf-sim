@@ -2,13 +2,20 @@
 <html>
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="http://chancejs.com/chance.min.js"></script>
-    <script src='gbfSim.controller.js'></script>
+    <title>Granblue Fantasy Gacha Simulator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.js"></script>
+    <script src="http://chancejs.com/chance.js"></script>
+    <script src='gbfSim.module.js'></script>
+    <script src='service/rngService.js'></script>
+    <script src='service/database.js'></script>
+    <script src='controller/gbfSim.controller.js'></script>
 </head>
 
-<body ng-app="myApp">
+<body ng-app="gbfSim">
     <div ng-controller="GbfSimController">
+    <h2>Granblue Fantasy Gacha Simulator</h2>
+    <p>Currently all gacha are assume equal drop rate.</p>
     <div>
         <input type="number" name="number of roll" ng-model="totalRoll" min="1" max="10000" required>
         <span>total money: {{totalRoll * 300}} yen</span>
@@ -21,6 +28,14 @@
         </label>
         <button ng-click="click()"><span>random</span></button>
     </div>
+    <div ng-repeat="type in ['c', 'lc', 'ec', 'w', 's']">
+        <div ng-repeat="elem in ['f', 'w', 'e', 'g', 'l', 'd']" style="float:left;width:180px;margin-left:20px">
+            <div ng-repeat="gacha in gachaDatabase|filter :{type: type, element: elem }">
+                {{gacha.name}}<span ng-if="gacha.totalGet > 0" style="display: block;float:right">{{gacha.totalGet}}</span>
+            </div>
+        </div>
+        <p style="clear: both">&nbsp;</p>
+    </div>
     <div ng-show="rollList.length > 0">
         <div>
             <span>Total SSR you get: {{totalSsr}}</span>
@@ -30,7 +45,7 @@
         <br/>
         <div ng-if="showDetails">
             <div ng-repeat="roll in rollList">
-                <span>{{roll.drop}}:{{roll.roll}}</span>
+                <span>{{roll.drop}}:{{roll.roll}}</span><span ng-if="roll.drop=='SSR'">:{{roll.name}}</span>
             </div>
         </div>
     </div>

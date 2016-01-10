@@ -55,7 +55,8 @@
 	{ "type": "lc", "element": "w", "name": "カタリナ(リミテッド)" },
     { "type": "lc", "element": "g", "name": "ロゼッタ(リミテッド)" },
     { "type": "lc", "element": "l", "name": "イオ(リミテッド)" },
-    { "type": "lc", "element": "w", "name": "アンチラ" },
+    
+    { "type": "ec", "element": "g", "name": "アンチラ" },
     
     { "type": "w", "element": "f", "name": "グラッドアイ" },		
     { "type": "w", "element": "f", "name": "クリムゾンフィンガー" },
