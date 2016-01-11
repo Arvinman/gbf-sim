@@ -25,7 +25,8 @@
         $http.get("https://www.random.org/integers/", rndConfig)
             .then(function (randNum) {
                 // Instantiate Chance with this truly random number as the seed
-                my_seeded_chance = new Chance(randNum);
+                console.log(randNum);
+                my_seeded_chance = new Chance(randNum.data);
                 console.log(my_seeded_chance.natural());
             }, function (err) {
                 // unable to connect to random.org
