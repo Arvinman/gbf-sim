@@ -10,6 +10,29 @@
     <script src='service/rngService.js'></script>
     <script src='service/database.js'></script>
     <script src='controller/gbfSim.controller.js'></script>
+    <style>
+        body {
+            background-color: linen;
+        }
+        
+        h2 {
+            color: maroon;
+        }
+        
+        .gachaTable {
+            float: left;
+            width: 180px;
+            margin-left: 5px;
+            padding: 5px;
+            border: 1px solid black;
+        }
+        
+        .totalRoll {
+            display: block;
+            float: right;
+            padding-right: 5px;
+        }
+    </style>
 </head>
 
 <body ng-app="gbfSim">
@@ -28,10 +51,15 @@
         </label>
         <button ng-click="click()"><span>random</span></button>
     </div>
+    <div>
+        <button ng-click="rollUntilFound()"><span>roll until get</span></button>
+        <button ng-click="clearAllChecked()"><span>clear all check</span></button>
+    </div>
     <div ng-repeat="type in ['c', 'lc', 'ec', 'w', 's']">
-        <div ng-repeat="elem in ['f', 'w', 'e', 'g', 'l', 'd']" style="float:left;width:180px;margin-left:20px">
-            <div ng-repeat="gacha in gachaDatabase|filter :{type: type, element: elem }">
-                {{gacha.name}}<span ng-if="gacha.totalGet > 0" style="display: block;float:right">{{gacha.totalGet}}</span>
+        <div ng-repeat="elem in ['f', 'w', 'e', 'g', 'l', 'd']" class="gachaTable">
+            <div ng-repeat="gacha in gachaDatabase|filter :{type: type, element: elem }  : true">
+                <input type="checkbox" ng-model="gacha.checked"><span>{{gacha.name}}</span></input>    
+                <span ng-if="gacha.totalGet > 0" class="totalRoll">{{gacha.totalGet}}</span>
             </div>
         </div>
         <p style="clear: both">&nbsp;</p>
